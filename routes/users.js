@@ -38,6 +38,16 @@ router.get("/:email",(req,res)=>{
   res.send(filtered_users);
 });
 
+// GET by lastName: Retrieve all users with a specific last name
+router.get("/lastname/:lastName",(req,res)=>{
+  // Extract the lastName parameter from the request URL
+  const lastName = req.params.lastName;
+  // Filter the users array to find users whose lastName matches the parameter
+  let filtered_users = users.filter((user) => user.lastName.toLowerCase() === lastName.toLowerCase());
+  // Send the filtered_users array as the response to the client
+  res.send(filtered_users);
+});
+
 
 // POST request: Create a new user
 router.post("/",(req,res)=>{
