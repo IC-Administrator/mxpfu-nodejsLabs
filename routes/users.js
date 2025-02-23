@@ -48,6 +48,25 @@ router.get("/lastname/:lastName",(req,res)=>{
   res.send(filtered_users);
 });
 
+// GET users sorted by date of birth
+router.get("/sort/dob", (req,res)=>{
+  // Create a copy of users array to avoid modifying original
+  let sorted_users = [...users];
+  
+  // Sort users by converting DD-MM-YYYY to YYYY-MM-DD for proper date comparison
+  sorted_users.sort((a, b) => {
+    const [dayA, monthA, yearA] = a.DOB.split('-');
+    const [dayB, monthB, yearB] = b.DOB.split('-');
+    
+    const dateA = new Date(`${yearA}-${monthA}-${dayA}`);
+    const dateB = new Date(`${yearB}-${monthB}-${dayB}`);
+    
+    return dateA - dateB;
+  });
+  
+  res.send(sorted_users);
+});
+
 
 // POST request: Create a new user
 router.post("/",(req,res)=>{
